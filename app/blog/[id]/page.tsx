@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Simulate blog posts data (replace with actual fetch or database call)
 const blogPosts = {
   "1": {
     id: "1",
@@ -30,40 +31,50 @@ const blogPosts = {
     author: "Sarah Johnson",
     category: "Design Trends",
   },
-  "3": {
-    id: "3",
-    title: "Smart Transit Hubs: The Next Generation",
-    excerpt: "How technology is reshaping the future of public transportation infrastructure.",
-    content: `
-      <p>The integration of smart technologies is revolutionizing public transportation hubs...</p>
-    `,
-    date: new Date("2024-01-05"),
-    image: "/proj2.jpg",
-    author: "Michael Brown",
-    category: "Technology",
-  },
-  "4": {
-    id: "4",
-    title: "Urban Planning for Better Transit Systems",
-    excerpt: "Creating sustainable and efficient public transportation through thoughtful urban design.",
-    content: `
-      <p>Urban planning plays a pivotal role in the creation of efficient, sustainable, and accessible public transportation systems...</p>
-    `,
-    date: new Date("2024-01-01"),
-    image: "/blog1.jpg",
-    author: "Emily Davis",
-    category: "Urban Planning",
-  },
+  // Add other posts here
 };
 
-// ✅ Correctly handle dynamic route parameter `params` from Next.js
-export default function BlogPost({ params }: { params: { id: string } }) {
+// ✅ Create static props function for dynamic route
+export async function getStaticProps({ params }: { params: { id: string } }) {
   const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
-    notFound();
+    return {
+      notFound: true,
+    };
   }
 
+  return {
+    props: { post }, // Pass the post data to the page component
+  };
+}
+
+export async function getStaticPaths() {
+  // Define dynamic paths for your blog posts
+  const paths = Object.keys(blogPosts).map((id) => ({
+    params: { id },
+  }));
+
+  return {
+    paths,
+    fallback: false, // 404s for missing pages
+  };
+}
+
+type BlogPostProps = {
+  post: {
+    id: string;
+    title: string;
+    excerpt: string;
+    content: string;
+    date: Date;
+    image: string;
+    author: string;
+    category: string;
+  };
+};
+
+export default function BlogPost({ post }: BlogPostProps) {
   return (
     <article className="container py-12 md:py-24">
       <Button variant="ghost" asChild className="mb-8">
