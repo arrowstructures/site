@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageProps } from "next";
 
 const blogPosts = {
   "1": {
@@ -56,13 +57,9 @@ const blogPosts = {
   },
 };
 
-// Corrected type for Next.js Dynamic Route Params
-interface BlogPostProps {
-  params: { id: string };
-}
-
-export default function BlogPost({ params }: BlogPostProps) {
-  const post = blogPosts[String(params.id) as keyof typeof blogPosts];
+// ✅ Fixed: Ensure params type correctly extends PageProps
+export default function BlogPost({ params }: PageProps<{ id: string }>) {
+  const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
     notFound();
