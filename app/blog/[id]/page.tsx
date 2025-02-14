@@ -34,47 +34,14 @@ const blogPosts = {
   // Add other posts here
 };
 
-// ✅ Create static props function for dynamic route
-export async function getStaticProps({ params }: { params: { id: string } }) {
+export default async function BlogPost({ params }: { params: { id: string } }) {
+  // Fetch the post data based on the dynamic 'id' param
   const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
-    return {
-      notFound: true,
-    };
+    notFound(); // If no post is found, show 404
   }
 
-  return {
-    props: { post }, // Pass the post data to the page component
-  };
-}
-
-export async function getStaticPaths() {
-  // Define dynamic paths for your blog posts
-  const paths = Object.keys(blogPosts).map((id) => ({
-    params: { id },
-  }));
-
-  return {
-    paths,
-    fallback: false, // 404s for missing pages
-  };
-}
-
-type BlogPostProps = {
-  post: {
-    id: string;
-    title: string;
-    excerpt: string;
-    content: string;
-    date: Date;
-    image: string;
-    author: string;
-    category: string;
-  };
-};
-
-export default function BlogPost({ post }: BlogPostProps) {
   return (
     <article className="container py-12 md:py-24">
       <Button variant="ghost" asChild className="mb-8">
