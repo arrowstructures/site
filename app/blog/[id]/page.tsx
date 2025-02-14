@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { format } from "date-fns"
-import { ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { format } from "date-fns";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const blogPosts = {
   "1": {
@@ -29,7 +29,7 @@ const blogPosts = {
       <p>As we move towards a more sustainable future, the integration of these innovative approaches in transportation infrastructure will play a crucial role in creating more livable, efficient, and environmentally friendly cities.</p>
     `,
     date: new Date("2024-01-15"),
-    image: "/proj 3.jpg",
+    image: "/proj3.jpg",
     author: "John Smith",
     category: "Sustainability",
   },
@@ -59,7 +59,7 @@ const blogPosts = {
       <p>The bus terminals of 2024 are no longer just transit points but have become destinations in themselves, offering comfort, efficiency, and a glimpse into the future of urban mobility.</p>
     `,
     date: new Date("2024-01-10"),
-    image: "/proj 1.jpg",
+    image: "/proj1.jpg",
     author: "Sarah Johnson",
     category: "Design Trends",
   },
@@ -89,7 +89,7 @@ const blogPosts = {
       <p>As these technologies continue to evolve and integrate, smart transit hubs will play a pivotal role in creating more sustainable, efficient, and user-centric urban transportation networks.</p>
     `,
     date: new Date("2024-01-05"),
-    image: "/proj 2.jpg",
+    image: "/proj2.jpg",
     author: "Michael Brown",
     category: "Technology",
   },
@@ -123,13 +123,19 @@ const blogPosts = {
     author: "Emily Davis",
     category: "Urban Planning",
   },
+};
+
+interface BlogPostProps {
+  params: {
+    id: string;
+  };
 }
 
-export default function BlogPost({ params }: { params: { id: string } }) {
-    const post = blogPosts[params.id as keyof typeof blogPosts] 
+export default function BlogPost({ params }: BlogPostProps) {
+  const post = blogPosts[params.id as keyof typeof blogPosts];
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -152,7 +158,13 @@ export default function BlogPost({ params }: { params: { id: string } }) {
         </div>
 
         <div className="relative aspect-video overflow-hidden rounded-lg">
-          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" priority />
+          <Image
+            src={post.image || "/placeholder.svg"}
+            alt={post.title}
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
 
         <div
@@ -161,5 +173,5 @@ export default function BlogPost({ params }: { params: { id: string } }) {
         />
       </div>
     </article>
-  )
+  );
 }
