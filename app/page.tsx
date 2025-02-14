@@ -1,12 +1,10 @@
-"use client"; 
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from 'react-fast-marquee';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users2, Building2, Leaf, Settings2 } from "lucide-react";
-
-
 
 export default function HomePage() {
   const clientLogos = [
@@ -24,27 +22,28 @@ export default function HomePage() {
       id: "01",
       title: "KKD Nagar Bus Stand",
       category: "Transportation",
-      image: "/proj 1.jpg",
+      image: "/proj1.jpg",
       description: "Modern bus terminus with sustainable design features",
     },
     {
       id: "02",
       title: "Mandaveli West Bus Depot",
       category: "Mixed-Use",
-      image: "/proj 2.jpg",
+      image: "/proj2.jpg",
       description: "Integrated commercial complex and transport hub",
     },
     {
       id: "03",
       title: "Anna Nagar West Bus Depot",
       category: "Transit-Oriented",
-      image: "/proj 3.jpg",
+      image: "/proj3.jpg",
       description: "Multi-modal transit station with retail spaces",
     },
-  ]
+  ];
 
   return (
     <>
+      {/* Hero Section */}
       <section className="relative h-[80vh] overflow-hidden">
         <Image
           src="/home.jpg"
@@ -67,6 +66,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Featured Projects Section */}
       <section className="py-12 md:py-24">
         <div className="container">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Featured Projects</h2>
@@ -96,6 +96,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* About Us Section */}
       <section className="border-t bg-muted py-12 md:py-24" id="about">
         <div className="container">
           <div className="grid gap-12 md:grid-cols-2">
@@ -144,6 +145,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Services Section */}
       <section className="py-12 md:py-24" id="services">
         <div className="container">
           <div className="mx-auto max-w-[900px] text-center">
@@ -182,35 +184,48 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Client Logos Section */}
       <section className="mt-3">
-      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center">Our Esteemed Customers</h2>
-      <Marquee speed={50} className="mt-20" pauseOnHover={true} loop={0}>
-        <div className="flex items-center">
-          {/* First Set of Logos */}
-          {clientLogos.map((logo, index) => (
-            <div
-              key={`first-${index}`}
-              className="flex-shrink-0 w-32 h-32 flex items-center justify-center overflow-hidden mx-5"
-            >
-              <img src={logo} alt={`Client Logo ${index + 1}`} className="w-full h-full object-contain " />
-            </div>
-          ))}
-          {/* Add an explicit spacer between the first and duplicated sets */}
-          <div className="flex-shrink-0 w-10 h-32"></div>
-          {/* Second Set of Logos */}
-          {clientLogos.map((logo, index) => (
-            <div
-              key={`second-${index}`}
-              className="flex-shrink-0 w-32 h-32  flex items-center justify-center overflow-hidden mx-5"
-            >
-              <img src={logo} alt={`Client Logo ${index + 1}`} className="w-full h-full object-contain " />
-            </div>
-          ))}
-        </div>
-      </Marquee>
-    </section><br/><br/><br/>
-      
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center">Our Esteemed Customers</h2>
+        <Marquee speed={50} className="mt-20" pauseOnHover={true} loop={0}>
+          <div className="flex items-center">
+            {/* First Set of Logos */}
+            {clientLogos.map((logo, index) => (
+              <div
+                key={`first-${index}`}
+                className="flex-shrink-0 w-32 h-32 flex items-center justify-center overflow-hidden mx-5"
+              >
+                <Image
+                  src={logo}
+                  alt={`Client Logo ${index + 1}`}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            ))}
+            {/* Spacer */}
+            <div className="flex-shrink-0 w-10 h-32"></div>
+            {/* Second Set of Logos */}
+            {clientLogos.map((logo, index) => (
+              <div
+                key={`second-${index}`}
+                className="flex-shrink-0 w-32 h-32 flex items-center justify-center overflow-hidden mx-5"
+              >
+                <Image
+                  src={logo}
+                  alt={`Client Logo ${index + 1}`}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </Marquee>
+      </section>
 
+      {/* Contact Section */}
       <section className="border-t bg-muted py-12 md:py-24" id="contact">
         <div className="container">
           <div className="grid gap-12 md:grid-cols-2">
@@ -222,7 +237,7 @@ export default function HomePage() {
               <div className="space-y-2">
                 <p className="text-sm">Email: info@arrowstructures.com</p>
                 <p className="text-sm">Phone: +91 88705 94827</p>
-                <p className="text-sm">Address: 5, Guru Govind Singh Road, R.S Puram,<br/> Coimbatore – 641002, Tamil Nadu, India.</p>
+                <p className="text-sm">Address: 5, Guru Govind Singh Road, R.S Puram,<br /> Coimbatore – 641002, Tamil Nadu, India.</p>
               </div>
               <Button asChild>
                 <Link href="/contact">
@@ -245,6 +260,5 @@ export default function HomePage() {
         </div>
       </section>
     </>
-  )
+  );
 }
-
